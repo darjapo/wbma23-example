@@ -1,10 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {StatusBar} from 'expo-status-bar';
+import {StyleSheet, Text, View} from 'react-native';
 
+// eslint-disable-next-line require-jsdoc
 export default function App() {
+  console.log('App starting!');
   return (
+    // eslint-disable-next-line react/react-in-jsx-scope
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>Hello world!</Text>
       <StatusBar style="auto" />
     </View>
   );
