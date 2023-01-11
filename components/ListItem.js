@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 const ListItem = (props) => {
   const item = props.singleMedia;
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={{flexDirection: 'row'}}>
       <Image
-        style={{width: 100, height: 100}}
+        style={{width: 150, height: 200}}
         source={{uri: item.thumbnails.w160}}
       ></Image>
-      <View>
-        <Text>{item.title}</Text>
-        <Text>{item.description}</Text>
+      <View style={{flexDirection: 'column'}}>
+        <Text style={{fontWeight: 'bold', fontSize: 22}}>{item.title}</Text>
+        <Text style={{textAlign: 'justify'}}>{item.description}</Text>
       </View>
     </TouchableOpacity>
   );

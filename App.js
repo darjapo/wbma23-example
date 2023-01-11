@@ -1,10 +1,10 @@
 import {StatusBar} from 'expo-status-bar';
-import {Platform, SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import List from './components/List';
 
 // eslint-disable-next-line require-jsdoc
 const App = () => {
-  console.log('App starting!');
+  // console.log('App starting!');
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -23,6 +23,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
 });
