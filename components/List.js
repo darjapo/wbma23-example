@@ -8,10 +8,14 @@ const List = () => {
   const [mediaArray, setMediaArray] = useState([]);
 
   const loadMedia = async () => {
-    const response = await fetch(url);
-    const json = await response.json();
-    setMediaArray(json);
-    console.log('List, mediaArray', mediaArray);
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+      setMediaArray(json);
+      console.log('List, mediaArray', mediaArray);
+    } catch (error) {
+      console.error('List, loadMedia', error);
+    }
   };
 
   useEffect(() => {
@@ -21,6 +25,7 @@ const List = () => {
   return (
     <FlatList
       data={mediaArray}
+      keyExtractor={(item, index) => index.toString()}
       renderItem={({item}) => <ListItem singleMedia={item} />}
     />
   );
