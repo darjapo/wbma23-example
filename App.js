@@ -1,27 +1,21 @@
 import {StatusBar} from 'expo-status-bar';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {Platform, StyleSheet, SafeAreaView} from 'react-native';
 import List from './components/List';
 
-// eslint-disable-next-line require-jsdoc
 const App = () => {
-  // console.log('App starting!');
   return (
-    <>
-      <SafeAreaView style={styles.container}>
-        <List />
-      </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      <List />
       <StatusBar style="auto" />
-    </>
+    </SafeAreaView>
   );
 };
 
 export default App;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: Platform.OS === 'android' ? 30 : 0,
   },
 });

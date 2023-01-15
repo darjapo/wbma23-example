@@ -1,25 +1,45 @@
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {uploadsUrl} from '../utils/variables';
-
-const ListItem = (props) => {
-  const item = props.singleMedia;
+const ListItem = ({singleMedia}) => {
+  const item = singleMedia;
   return (
-    <TouchableOpacity style={{flexDirection: 'row'}}>
-      <Image
-        style={{width: 100, height: 100}}
-        source={{uri: uploadsUrl + item.thumbnails?.w160}}
-      ></Image>
-      <View style={{flexDirection: 'column'}}>
-        <Text style={{fontWeight: 'bold', fontSize: 22}}>{item.title}</Text>
-        <Text style={{textAlign: 'justify'}}>{item.description}</Text>
+    <TouchableOpacity style={styles.row}>
+      <View style={styles.box}>
+        <Image
+          style={styles.image}
+          source={{uri: uploadsUrl + item.thumbnails?.w160}}
+        />
+      </View>
+      <View style={styles.box}>
+        <Text style={styles.listTitle}>{item.title}</Text>
+        <Text>{item.description}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    backgroundColor: '#ccc',
+    marginBottom: 10,
+  },
+  box: {
+    flex: 1,
+    padding: 10,
+  },
+  image: {
+    flex: 1,
+    minHeight: 100,
+  },
+  listTitle: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    paddingBottom: 15,
+  },
+});
+
 ListItem.propTypes = {
   singleMedia: PropTypes.object,
 };
-
-export default ListItem;
