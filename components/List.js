@@ -32,6 +32,16 @@ const mediaArray = [
     },
     filename: 'http://placekitten.com/2039/1920',
   },
+  {
+    key: '3',
+    title: 'Title 4',
+    description:
+      'Phasellus imperdiet nunc tincidunt molestie vestibulum. Donec dictum suscipit nibh. Sed vel velit ante. Aenean quis viverra magna. Praesent eget cursus urna. Ut rhoncus interdum dolor non tincidunt. Sed vehicula consequat facilisis. Pellentesque pulvinar sem nisl, ac vestibulum erat rhoncus id. ',
+    thumbnails: {
+      w160: 'http://placekitten.com/160/167',
+    },
+    filename: 'http://placekitten.com/2039/1920',
+  },
 ];
 
 const List = () => {
