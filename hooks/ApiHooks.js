@@ -1,6 +1,18 @@
 import {useEffect, useState} from 'react';
 import {baseUrl} from '../utils/variables';
 
+const doFetch = async (url, options) => {
+  const response = await fetch(url, options);
+  const json = await response.json();
+  if (!response.ok) {
+    const message = json.message
+      ? `${json.message}: ${json.error}`
+      : json.message;
+    throw new Error(message || response.statusText);
+  }
+  return json;
+};
+
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
 
@@ -29,16 +41,37 @@ const useMedia = () => {
 };
 
 const useAuthentication = () => {
-  const postLogin = async () => {
-    // TODO: post login to api
-    //
+  const postLogin = async (useCredentials) => {
+    const options = {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(useCredentials),
+    };
+    try {
+      return await doFetch(baseUrl + 'login', options);
+    } catch (error) {
+      throw new Error('postLogin: ' + error.message);
+    }
   };
+  return {postLogin};
 };
 
 const useUser = () => {
-  const checkUser = async () => {
-    // call
+  const getUserByToken = async (token) => {
+    const options = {
+      method: 'GET',
+      headers: {'x-access-token': token},
+    };
+    try {
+      return await doFetch(baseUrl + 'users/user', options);
+    } catch (error) {
+      throw new Error('getUserByToken: ' + error.message);
+    }
   };
+
+  return {getUserByToken};
 };
 
 export {useMedia, useAuthentication, useUser};
