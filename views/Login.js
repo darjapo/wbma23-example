@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAuthentication, useUser} from '../hooks/ApiHooks';
 
 const Login = ({navigation}) => {
@@ -12,7 +12,7 @@ const Login = ({navigation}) => {
 
   const logIn = async () => {
     console.log('Login button pressed');
-    const data = {username: 'darjapo', password: 'qwerty1234'};
+    const data = {username: 'ilkkamtk', password: 'q1w2e3r4'};
     try {
       const loginResult = await postLogin(data);
       console.log('logIn', loginResult);
@@ -22,7 +22,6 @@ const Login = ({navigation}) => {
       console.error('logIn', error);
     }
   };
-
   const checkToken = async () => {
     try {
       const userToken = await AsyncStorage.getItem('userToken');
@@ -37,7 +36,6 @@ const Login = ({navigation}) => {
   useEffect(() => {
     checkToken();
   }, []);
-
   return (
     <View style={styles.container}>
       <Text>Login</Text>
@@ -45,7 +43,6 @@ const Login = ({navigation}) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -54,9 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
 Login.propTypes = {
   navigation: PropTypes.object,
 };
-
 export default Login;
