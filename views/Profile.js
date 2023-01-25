@@ -1,32 +1,37 @@
-import React, {useContext, useEffect} from 'react';
-import {StyleSheet, SafeAreaView, Text, Button, Image} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useTag} from '../hooks/ApiHooks';
 import {uploadsUrl} from '../utils/variables';
+import {Button, Card, Icon, ListItem} from '@rneui/themed';
 
 const Profile = () => {
   const {getFilesByTag} = useTag();
   const {setIsLoggedIn, user, setUser} = useContext(MainContext);
-  let avatar = '';
-
+  const [avatar, setAvatar] = useState('');
   const loadAvatar = async () => {
-    const avatarArray = await getFilesByTag('avatar_' + user.user_id);
-    console.log('avatar', avatarArray.pop());
-    avatar = avatarArray.pop().filename;
+    try {
+      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
+      setAvatar(avatarArray.pop().filename);
+    } catch (error) {
+      console.error('user avatar fetch failed', error.message);
+    }
   };
-
   useEffect(() => {
     loadAvatar();
   }, []);
-
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>Profile</Text>
-      <Image style={styles.image} source={{uri: uploadsUrl + avatar}} />
-      <Text>Username: {user.username}</Text>
-      <Text>Email: {user.email}</Text>
-      <Text>Full name: {user.full_name}</Text>
+    <Card>
+      <Card.Title>{user.username}</Card.Title>
+      <Card.Image source={{uri: uploadsUrl + avatar}} />
+      <ListItem>
+        <Icon name="email" />
+        <ListItem.Title>{user.email}</ListItem.Title>
+      </ListItem>
+      <ListItem>
+        <Icon name="badge" />
+        <ListItem.Title>{user.full_name}</ListItem.Title>
+      </ListItem>
       <Button
         title="Logout!"
         onPress={async () => {
@@ -40,20 +45,7 @@ const Profile = () => {
           }
         }}
       />
-    </SafeAreaView>
+    </Card>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 40,
-  },
-  image: {
-    width: 200,
-    height: 300,
-  },
-});
 export default Profile;
