@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {baseUrl} from '../utils/variables';
+
 const doFetch = async (url, options) => {
   const response = await fetch(url, options);
   const json = await response.json();
@@ -81,7 +82,27 @@ const useUser = () => {
       throw new Error('postUser: ' + error.message);
     }
   };
-  return {getUserByToken, postUser};
+
+  const checkUsername = async (username) => {
+    try {
+      const result = await doFetch(baseUrl + 'users/username/' + username);
+      return result.available;
+    } catch (error) {
+      throw new Error('checkUsername: ' + error.message);
+    }
+  };
+
+  return {getUserByToken, postUser, checkUsername};
 };
 
-export {useMedia, useAuthentication, useUser};
+const useTag = () => {
+  const getFilesByTag = async (tag) => {
+    try {
+      return await doFetch(baseUrl + 'tags/' + tag);
+    } catch (error) {
+      throw new Error('getFilesByTag, ' + error.message);
+    }
+  };
+  return {getFilesByTag};
+};
+export {useMedia, useAuthentication, useUser, useTag};
