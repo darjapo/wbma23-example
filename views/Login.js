@@ -1,10 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
+import {Keyboard, ScrollView, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,12 +7,10 @@ import {useUser} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import {Button, Card, Text} from '@rneui/base';
-
 const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {getUserByToken} = useUser();
   const [toggleForm, setToggleForm] = useState(true);
-
   const checkToken = async () => {
     try {
       const userToken = await AsyncStorage.getItem('userToken');
@@ -35,10 +28,8 @@ const Login = ({navigation}) => {
     checkToken();
   }, []);
   return (
-    <TouchableOpacity onPress={() => Keyboard.dismiss()} activeOpacity={1}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
+    <ScrollView>
+      <TouchableOpacity onPress={() => Keyboard.dismiss()} activeOpacity={1}>
         {toggleForm ? <LoginForm /> : <RegisterForm />}
         <Card>
           <Text>
@@ -54,8 +45,8 @@ const Login = ({navigation}) => {
             }}
           />
         </Card>
-      </KeyboardAvoidingView>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 Login.propTypes = {
