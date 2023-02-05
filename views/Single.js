@@ -2,7 +2,6 @@ import React from 'react';
 import {uploadsUrl} from '../utils/variables';
 import PropTypes from 'prop-types';
 import {Text, Card, ListItem} from '@rneui/themed';
-
 const Single = ({route}) => {
   console.log(route.params);
   const {
@@ -21,7 +20,7 @@ const Single = ({route}) => {
         <Text>{description}</Text>
       </ListItem>
       <ListItem>
-        <Text>uploaded at: {timeAdded}</Text>
+        <Text>uploaded at: {new Date(timeAdded).toLocaleString('fi-FI')}</Text>
       </ListItem>
       <ListItem>
         <Text>by user: {userId}</Text>
@@ -29,7 +28,6 @@ const Single = ({route}) => {
     </Card>
   );
 };
-
 Single.propTypes = {
   route: PropTypes.object,
 };
